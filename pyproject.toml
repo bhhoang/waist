@@ -1,0 +1,15 @@
+[project]
+name = "weather-app"
+version = "0.1.0"
+description = "Weather application"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "fastapi[standard]>=0.116.1",
+    "numpy>=2.3.2",
+    "openmeteo-requests>=1.6.0",
+    "pandas>=2.3.1",
+    "requests-cache>=1.2.1",
+    "retry-requests>=2.0.0",
+    "sqlalchemy>=2.0.42",
+]
