@@ -1,0 +1,117 @@
+.App {
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+.App-header {
+  background-color: #282c34;
+  padding: 20px;
+  color: white;
+  margin-bottom: 20px;
+}
+
+.user-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.username-input {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.username-input label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.username-input input {
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  min-width: 200px;
+}
+
+.username-input button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.username-input button:hover {
+  background-color: #45a049;
+}
+
+.location-input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.location-input label {
+  margin: 0 10px;
+}
+
+.location-input input {
+  padding: 5px;
+  margin-left: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+main {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  padding: 20px;
+}
+
+.weather-section,
+.map-section {
+  flex: 1;
+  min-width: 300px;
+  margin: 10px;
+  padding: 20px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.current-weather,
+.daily-forecast {
+  margin-bottom: 20px;
+}
+
+.daily-forecast > div {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.daily-forecast h3 {
+  margin-top: 0;
+}
+
+.daily-forecast div > div {
+  flex: 1;
+  min-width: 120px;
+  max-width: 150px;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.map-container {
+  margin-top: 20px;
+}
