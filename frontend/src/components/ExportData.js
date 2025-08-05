@@ -131,7 +131,7 @@ function ExportData({ userName }) {
             disabled={exportStatus === 'exporting'}
             style={{
               padding: '10px 15px',
-              backgroundColor: exportStatus === 'success' ? '#4CAF50' : exportStatus === 'error' ? '#f44336' : '#2196F3',
+              backgroundColor: exportStatus === 'success' ? '#4CAF50' : '#2196F3',
               color: 'white',
               border: 'none',
               borderRadius: '5px',
@@ -143,7 +143,6 @@ function ExportData({ userName }) {
           >
             {exportStatus === 'exporting' ? 'Exporting...' : 
              exportStatus === 'success' ? '✓ Done!' : 
-             exportStatus === 'error' ? '✗ Error' : 
              `Export ${label}`}
           </button>
         ))}
@@ -160,48 +159,8 @@ function ExportData({ userName }) {
           ✅ Export completed successfully! Check your downloads folder.
         </p>
       )}
-      {exportStatus === 'error' && (
-        <p style={{ color: '#f44336', fontSize: '0.9em' }}>
-          ❌ Export failed. Please try again or contact support.
-        </p>
-      )}
 
       {/* Additional Export Options */}
-      <div style={{ marginTop: '20px', padding: '15px', backgroundColor: '#e8f4f8', borderRadius: '5px' }}>
-        <h4 style={{ margin: '0 0 10px 0' }}>Quick Export Options</h4>
-        <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-          <button
-            onClick={() => exportData('locations/json')}
-            disabled={exportStatus === 'exporting'}
-            style={{
-              padding: '8px 12px',
-              backgroundColor: '#17a2b8',
-              color: 'white',
-              border: 'none',
-              borderRadius: '3px',
-              cursor: exportStatus === 'exporting' ? 'not-allowed' : 'pointer',
-              fontSize: '0.9em'
-            }}
-          >
-            Export Locations Only
-          </button>
-          <button
-            onClick={() => exportData('weather/json')}
-            disabled={exportStatus === 'exporting'}
-            style={{
-              padding: '8px 12px',
-              backgroundColor: '#28a745',
-              color: 'white',
-              border: 'none',
-              borderRadius: '3px',
-              cursor: exportStatus === 'exporting' ? 'not-allowed' : 'pointer',
-              fontSize: '0.9em'
-            }}
-          >
-            Export Weather Only
-          </button>
-        </div>
-      </div>
       
       <p style={{ fontSize: '0.8em', color: '#666', marginTop: '10px' }}>
         💡 Tip: Use filters to export specific data ranges or locations. 

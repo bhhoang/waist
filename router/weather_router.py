@@ -83,6 +83,29 @@ async def hourly_forecast_endpoint(name: str):
     except HTTPException as e:
         return {"error": 400, "detail": str(e)}
 
+@router.get("/user")
+async def get_user_weather_records(
+    user: str = Query(None, description="Filter by user name"),
+    db: Session = Depends(get_db)
+):
+    """
+    Endpoint to get weather records filtered by user name.
+
+    Args:
+        user: The name of the user to filter records by.
+        db: The database session dependency.
+
+    Returns:
+        list[WeatherData]: A list of weather records for the specified user.
+    """
+    if not user:
+        raise HTTPException(status_code=400, detail="User name is required")
+
+    records = db.query(Weather).filter(Weather.triggered_user == user).all()
+    if not records:
+        raise HTTPException(status_code=404, detail="No records found for this user")
+
+    return [record for record in records]
 
 # CREATE ENDPOINT
 @router.post("/create")
@@ -106,6 +129,7 @@ async def create_weather_record(
         return {"message": "Weather record created successfully",}
     except HTTPException as e:
         return {"error": 500, "detail": f"Database error: {str(e)}"}
+
 
 
 @router.get("/{weather_id}", response_model=WeatherData)

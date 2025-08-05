@@ -51,6 +51,13 @@ class Location(Base):
         """
         return db.query(cls).filter(cls.name.ilike(name)).first()
 
+    @classmethod
+    def get_by_id(cls, db, loc_id):
+        """
+        Fetch the location by ID from the database.
+        """
+        return db.query(cls).filter(cls.id == loc_id).first()
+
     def to_dict(self):
         """
         Convert the location object to a dictionary.

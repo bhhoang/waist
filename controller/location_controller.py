@@ -40,5 +40,16 @@ def get_geodata(
 
     location.save(db)
     fprint(f"Location {name} saved to the database.", level="info")
+    return location.to_dict()
+
+def get_geodata_by_id(loc_id: int) -> dict:
+    """
+    Fetch geodata by location ID.
+    """
+    db = next(get_db())
+    location = Location.get_by_id(db, loc_id)
+    if not location:
+        fprint(f"Location with ID {loc_id} not found.", level="error")
+        return {}
     db.close()
     return location.to_dict()

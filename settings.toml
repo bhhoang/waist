@@ -1,6 +1,6 @@
 [app]
-# -1 to turn off log, 0 for info, 1 for warning and 2 for error
-log_level = 2
+# -1 to turn off log, 0 for error, 1 for warning and 2 for info
+log_level = -1
 
 [database]
 url = "postgresql+psycopg2://postgres:postgres@localhost:5432/postgres"

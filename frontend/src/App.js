@@ -1,17 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import './App.css';
 import CurrentWeather from './components/CurrentWeather';
 import DailyForecast from './components/DailyForecast';
 import MapEmbed from './components/MapEmbed';
 import ExportData from './components/ExportData';
+import UserHistory from './components/UserHistory';
 
 function App() {
   const [userName, setUserName] = useState('');
   const [inputValue, setInputValue] = useState('Berlin');
-  const [locationName, setLocationName] = useState('Berlin');
+  const [locationName, setLocationName] = useState('Berlin'); // Set to default location
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
   const [error, setError] = useState(null);
+  const [showHistory, setShowHistory] = useState(false);
 
   // Generate random username if none provided
   const generateRandomUsername = () => {
@@ -23,19 +25,10 @@ function App() {
     return result;
   };
 
-  // Get effective username (user provided or random)
-  const getEffectiveUsername = () => {
+  // Get effective username (user provided or random) - memoized to prevent unnecessary re-renders
+  const effectiveUsername = useMemo(() => {
     return userName.trim() || generateRandomUsername();
-  };
-
-  // Debounce effect for input changes
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setLocationName(inputValue);
-    }, 500); // 500ms delay
-
-    return () => clearTimeout(timeoutId);
-  }, [inputValue]);
+  }, [userName]);
 
   useEffect(() => {
     const fetchGeodata = async () => {
@@ -74,8 +67,17 @@ function App() {
     setInputValue(e.target.value);
   };
 
+  const handleLocationSubmit = (e) => {
+    e.preventDefault();
+    setLocationName(inputValue.trim());
+  };
+
   const handleUserNameChange = (e) => {
     setUserName(e.target.value);
+  };
+
+  const handleToggleHistory = () => {
+    setShowHistory(!showHistory);
   };
 
   const handleRandomizeUsername = () => {
@@ -106,32 +108,46 @@ function App() {
               </button>
             </label>
             <p style={{ fontSize: '0.8em', color: '#666', margin: '5px 0' }}>
-              Current user: <strong>{getEffectiveUsername()}</strong>
+              Current user: <strong>{effectiveUsername}</strong>
             </p>
           </div>
           <div className="location-input">
-            <label>
-              Location Name:
-              <input type="text" value={inputValue} onChange={handleLocationNameChange} />
-            </label>
+            <form onSubmit={handleLocationSubmit} style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+              <label>
+                Location Name:
+                <input 
+                  type="text" 
+                  value={inputValue} 
+                  onChange={handleLocationNameChange}
+                  placeholder="Enter location name"
+                />
+              </label>
+              <button type="submit">Search</button>
+            </form>
           </div>
+          <button onClick={handleToggleHistory}>
+            {showHistory ? 'Hide History' : 'Show History'}
+          </button>
         </div>
         {error && <p style={{ color: 'red' }}>{error}</p>}
       </header>
       <main>
         <div className="weather-section">
           {locationName && !error && (
-            <CurrentWeather locationName={locationName} userName={getEffectiveUsername()} />
+            <CurrentWeather locationName={locationName} userName={effectiveUsername} />
           )}
           {locationName && !error && (
-            <DailyForecast locationName={locationName} userName={getEffectiveUsername()} />
+            <DailyForecast locationName={locationName} userName={effectiveUsername} />
           )}
-          <ExportData userName={getEffectiveUsername()} />
+          <ExportData userName={effectiveUsername} />
         </div>
         <div className="map-section">
           {latitude && longitude && (
             <MapEmbed latitude={latitude} longitude={longitude} />
           )}
+        </div>
+        <div className="history-section">
+          {showHistory && <UserHistory userName={effectiveUsername} />}
         </div>
       </main>
     </div>
