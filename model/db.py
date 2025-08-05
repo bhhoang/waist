@@ -15,8 +15,10 @@ with open(config_path, "rb") as config_file:
         raise FileNotFoundError(f"Configuration file {config_path} not found.")
     config = tomllib.load(config_file)
 
-DATABASE_URL = config.get("database", {}).get("url", None)
-pool_size = config.get("database", {}).get("pool_size", 10)
+DB_URL = config.get("database", {}).get("url", None)
+DATABASE_URL = os.getenv("DATABASE_URL", DB_URL)
+pool = config.get("database", {}).get("pool_size", 10)
+pool_size = os.getenv("DATABASE_POOL_SIZE", pool)
 
 if not DATABASE_URL:
     raise ValueError(
