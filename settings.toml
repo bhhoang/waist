@@ -1,7 +1,7 @@
 [app]
 # -1 to turn off log, 0 for info, 1 for warning and 2 for error
-log_level = 0
+log_level = 2
 
 [database]
-url = "postgresql+psycopg2://postgres:your_password@localhost:5432/weather_db"
-pool_size = 2
+url = "postgresql+psycopg2://postgres:postgres@localhost:5432/postgres"
+pool_size = 10
