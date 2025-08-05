@@ -13,7 +13,7 @@ function CurrentWeather({ locationName, userName }) {
     const fetchCurrentWeather = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`http://127.0.0.1:8000/weather/current?name=${locationName}`);
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/weather/current?name=${locationName}`);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -41,7 +41,7 @@ function CurrentWeather({ locationName, userName }) {
     try {
       setSaveStatus('saving');
         // Location doesn't exist, create it
-      const locationResponse = await fetch(`http://127.0.0.1:8000/geodata?name=${encodeURIComponent(locationName)}`, {
+      const locationResponse = await fetch(`${process.env.REACT_APP_API_URL}/geodata?name=${encodeURIComponent(locationName)}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -80,7 +80,7 @@ function CurrentWeather({ locationName, userName }) {
         date: new Date().toISOString()
       };
 
-      const weatherResponse = await fetch(`http://127.0.0.1:8000/weather/create`, {
+      const weatherResponse = await fetch(`${process.env.REACT_APP_API_URL}/weather/create`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

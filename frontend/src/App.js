@@ -38,7 +38,7 @@ function App() {
         return;
       }
       try {
-        const response = await fetch(`http://127.0.0.1:8000/weather/current?name=${locationName}`);
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/weather/current?name=${locationName}`);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }

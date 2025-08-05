@@ -8,7 +8,7 @@ function UserHistory({ userName }) {
   useEffect(() => {
     const fetchHistory = async () => {
       try {
-        const response = await fetch(`http://127.0.0.1:8000/weather/user?user=${userName}`);
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/weather/user?user=${userName}`);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -53,7 +53,7 @@ function UserHistory({ userName }) {
     }
     
     try {
-      const response = await fetch(`http://127.0.0.1:8000/geodata/${locId}`);
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/geodata/${locId}`);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -75,7 +75,7 @@ function UserHistory({ userName }) {
 
   const deleteRecord = async (recordId) => {
     try {
-      const response = await fetch(`http://127.0.0.1:8000/weather/${recordId}`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/weather/${recordId}`, {
         method: 'DELETE',
       });
       if (!response.ok) {

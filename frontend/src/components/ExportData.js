@@ -26,7 +26,7 @@ function ExportData({ userName }) {
       if (filters.endDate) params.append('end_date', filters.endDate);
       
       const queryString = params.toString();
-      const url = `http://127.0.0.1:8000/export/${format}${queryString ? `?${queryString}` : ''}`;
+      const url = `${process.env.REACT_APP_API_URL}/export/${format}${queryString ? `?${queryString}` : ''}`;
       
       const response = await fetch(url);
       

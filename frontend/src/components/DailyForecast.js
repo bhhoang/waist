@@ -33,7 +33,7 @@ function DailyForecast({ locationName }) {
         console.log(`Fetching daily forecast for ${locationName} from ${formatDate(today)} to ${formatDate(endDate)}`);
 
         const response = await fetch(
-          `http://127.0.0.1:8000/weather/daily?name=${locationName}&start_date=${formatDate(today)}&end_date=${formatDate(endDate)}`
+          `${process.env.REACT_APP_API_URL}/weather/daily?name=${locationName}&start_date=${formatDate(today)}&end_date=${formatDate(endDate)}`
         );
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
