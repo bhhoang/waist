@@ -2,21 +2,42 @@
 # model/db.py
 # This module sets up the database connection and base class for SQLAlchemy models.
 """
+
 import os
 import tomllib
 from sqlalchemy import create_engine
-from sqlalchemy.orm import declarative_base
+from sqlalchemy.orm import declarative_base, sessionmaker
 
-config_path = os.path.join(os.path.dirname(__file__), '..', 'settings.toml')
+config_path = os.path.join(os.path.dirname(__file__), "..", "settings.toml")
 with open(config_path, "rb") as config_file:
     if not os.path.exists(config_path):
         raise FileNotFoundError(f"Configuration file {config_path} not found.")
     config = tomllib.load(config_file)
+
 DATABASE_URL = config.get("database", {}).get("url", None)
 pool_size = config.get("database", {}).get("pool_size", 2)
 
 if not DATABASE_URL:
-    raise ValueError("Please set up a database URL in settings.toml under [database] section first")
+    raise ValueError(
+        "Please set up a database URL in settings.toml under [database] section first"
+    )
 
 engine = create_engine(DATABASE_URL, pool_size=pool_size, max_overflow=0)
 Base = declarative_base()
+
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+
+def get_db():
+    """Get database session"""
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+
+def create_tables():
+    """Create all database tables"""
+    Base.metadata.create_all(bind=engine)
+    print("Database tables created successfully!")
