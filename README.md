@@ -35,8 +35,14 @@ This project is set up to run with Docker and Docker Compose.
 1.  **Clone the repository:**
 
     ```bash
-    git clone <repository-url>
+    git clone https://github.com/bhhoang/waist
     cd waist
+    ```
+2. **Config the application**
+    Use any favorite text editor to change the `docker-compose.yml` this part in `frontend` service. This will change your endpoint to fetch the api from the backend.
+    ```yml
+        environment
+          - REACT_APP_API_URL=http://localhost:8000
     ```
 
 2.  **Run the application:**
