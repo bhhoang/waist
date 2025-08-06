@@ -54,6 +54,7 @@ function App() {
           setError(null);
         }
       } catch (e) {
+        console.log(e);
         setError(`Failed to fetch location data: ${e.message}`);
         setLatitude(null);
         setLongitude(null);

@@ -10,7 +10,7 @@ if /i "%USE_REMOTE%"=="y" (
     call :getRemoteURL
     call docker-compose -f docker-compose.yml up --build
 ) else (
-    set "DATABASE_URL=postgres://postgres:postgres@database:5432/postgres"
+    set "DATABASE_URL=postgresql://postgres:postgres@database:5432/postgres"
     echo Using local Postgres DB at: !DATABASE_URL!
     call docker-compose -f docker-compose.yml -f docker-compose.override.yml up --build
 )
@@ -18,7 +18,7 @@ if /i "%USE_REMOTE%"=="y" (
 goto :eof
 
 :getRemoteURL
-echo Enter your remote DATABASE_URL (e.g. postgres://user:pass@host:port/dbname):
+echo Enter your remote DATABASE_URL (e.g. postgresql://user:pass@host:port/dbname):
 set /p INPUT_URL=
 set "DATABASE_URL=%INPUT_URL%"
 echo Using remote DB: %DATABASE_URL%

@@ -18,7 +18,7 @@ with open(config_path, "rb") as config_file:
 DB_URL = config.get("database", {}).get("url", None)
 DATABASE_URL = os.getenv("DATABASE_URL", DB_URL)
 pool = config.get("database", {}).get("pool_size", 10)
-pool_size = os.getenv("DATABASE_POOL_SIZE", pool)
+pool_size = int(os.getenv("DATABASE_POOL_SIZE", pool))
 
 if not DATABASE_URL:
     raise ValueError(

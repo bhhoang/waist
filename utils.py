@@ -27,7 +27,7 @@ def fprint(message: str, level: str = "info") -> None:
 
     config = tomllib.load(open("settings.toml", "rb"))
     config_threshold = config.get("app", {}).get("log_level", 0)
-    threshold = os.getenv("LOG_LEVEL", config_threshold)
+    threshold = int(os.getenv("LOG_LEVEL", config_threshold))
     level_map = {
         "error": 0,
         "warn": 1,
